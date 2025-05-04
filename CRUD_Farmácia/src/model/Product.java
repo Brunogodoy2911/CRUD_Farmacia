@@ -11,6 +11,13 @@ public abstract class Product {
 	private int type;
 	private double price;
 
+	public Product(int id, String name, int type, double price) {
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.price = price;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -49,7 +56,7 @@ public abstract class Product {
 		System.out.println("=========================================");
 		System.out.println("ID: " + id);
 		System.out.println("Nome: " + name);
-		System.out.println("Tipo: " + type);
+		System.out.println("Tipo: " + (type == 1 ? "Cosmético" : "Medicamento"));
 		System.out.println("Preço: " + nfMoeda.format(price));
 		System.out.println("=========================================");
 	}

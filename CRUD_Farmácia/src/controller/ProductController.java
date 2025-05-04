@@ -13,6 +13,7 @@ public class ProductController implements ProductRepository {
 
 	@Override
 	public void createProduct(Product product) {
+		product.setId(idAutomatic);
 		products.add(product);
 
 		System.out.println("\n✅ Produto criado com sucesso!");
@@ -20,15 +21,20 @@ public class ProductController implements ProductRepository {
 
 	@Override
 	public void listAllProducts() {
-		System.out.println("\n📋 Lista de todos os Produtos:");
-		for (Product prod : products) {
-			prod.view();
+		if (products.isEmpty()) {
+			System.out.println("\n❌ Não há produtos cadastrados no momento. Adicione novos produtos para começar.");
+		} else {
+			System.out.println("\n📋 Lista de todos os Produtos:");
+			for (Product prod : products) {
+				prod.view();
+			}
 		}
+
 	}
 
 	@Override
 	public void listProductById(int id) {
-		System.out.printf("\n📋 Lista de todos os Produtos com Id %d: ", id);
+		System.out.printf("\n📋 Lista de todos os Produtos com ID %d: \n", id);
 		for (Product prod : products) {
 			if (prod.getId() == id) {
 				prod.view();
@@ -58,7 +64,7 @@ public class ProductController implements ProductRepository {
 	}
 
 	@Override
-	public void deleteProduct(int id) {
+	public void removeProduct(int id) {
 
 		boolean removed = products.removeIf(prod -> prod.getId() == id);
 
@@ -67,5 +73,19 @@ public class ProductController implements ProductRepository {
 		} else {
 			System.out.println("\n❌ Produto com ID " + id + " não encontrado.");
 		}
+	}
+
+	public int generateId() {
+		return ++idAutomatic;
+	}
+
+	public boolean existsById(int id) {
+		for (Product prod : products) {
+			if (prod.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 }
