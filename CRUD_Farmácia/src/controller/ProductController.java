@@ -38,8 +38,6 @@ public class ProductController implements ProductRepository {
 		for (Product prod : products) {
 			if (prod.getId() == id) {
 				prod.view();
-			} else {
-				System.out.println("\n❌ Produtos com ID \"" + id + "\" não encontrado.");
 			}
 		}
 	}

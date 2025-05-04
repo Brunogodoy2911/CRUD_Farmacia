@@ -78,7 +78,12 @@ public class Menu {
 					System.out.println("Digite o ID do produto que deseja procurar: ");
 					int id = read.nextInt();
 
-					products.listProductById(id);
+					if (products.existsById(id)) {
+						products.listProductById(id);
+					} else {
+						System.out.println("\n❌ Produtos com ID \"" + id + "\" não encontrado.");
+					}
+
 				}
 				case 4 -> {
 					System.out.println("Digite o ID do produto que deseja atualizar: ");
@@ -122,7 +127,17 @@ public class Menu {
 					int id = read.nextInt();
 					read.nextLine();
 
-					products.removeProduct(id);
+					String confirm;
+					do {
+						System.out.println("Deseja realmente remover o produto? (S - sim | N - não)");
+						confirm = read.nextLine().trim();
+					} while (!confirm.equalsIgnoreCase("S") && !confirm.equalsIgnoreCase("N"));
+
+					if (confirm.equalsIgnoreCase("S")) {
+						products.removeProduct(id);
+					} else {
+						System.out.println("❎ Remoção cancelada.");
+					}
 				}
 				default -> System.out.println("\n❌ Opção inválida. Tente novamente.");
 				}
